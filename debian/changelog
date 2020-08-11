@@ -28,6 +28,12 @@ ffmpeg (7:4.3.1-2) unstable; urgency=medium
 
  -- Jonas Smedegaard <dr@jones.dk>  Sat, 15 Aug 2020 23:08:50 +0200
 
+ffmpeg (7:4.3.1-1c1-nonfree) unstable; urgency=medium
+
+  * Custom Version built with cuda, cuvid, nvdec and nvenc support
+
+ -- ciwei100000 <ciwei100000@gmail.com>  Tue, 11 Aug 2020 08:55:15 -0700
+
 ffmpeg (7:4.3.1-1) unstable; urgency=high
 
   [ upstream ]
