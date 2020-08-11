@@ -78,7 +78,7 @@ CONFIG := --prefix=/usr \
 	--enable-openal \
 	--enable-opencl \
 	--enable-opengl \
-	--enable-sdl2
+	--enable-sdl2 
 
 # avoid pocketsphinx on mips (bug#812335), alpha, ia64 and big-endian (bug#968456)
 ifeq (,$(filter mips% alpha ia64,$(DEB_HOST_ARCH))$(filter big,$(DEB_HOST_ARCH_ENDIAN)))
@@ -87,6 +87,17 @@ endif
 
 ifeq (amd64,$(DEB_HOST_ARCH))
 CONFIG += --enable-libmfx
+# hardware accelerated decoding and encoding via the h264_cuvid, hevc_cuvid and h264_nvenc, hevc_nvenc modules
+# this is added by ciwei100000 for self-use and not the original packaging rules. Need Cuda Toolkits, See: 
+# https://developer.nvidia.com/blog/nvidia-ffmpeg-transcoding-guide/
+# Non-Free and not redistributable
+CONFIG += --enable-cuda \
+	  --enable-cuvid \
+	  --enable-nvenc \
+	  --enable-nonfree \
+	  --enable-libnpp \
+	  --extra-cflags=-I/usr/local/cuda/include \
+	  --extra-ldflags=-L/usr/local/cuda/lib64
 endif
 
 # The standard configuration only uses the shared CONFIG.
@@ -290,10 +301,12 @@ override_dh_shlibdeps:
 	set -e && for pkg in $(EXTRA_PKGS); do \
 		mainpkg=`echo $$pkg | sed 's/-extra//'`; \
 		cp -f debian/$$mainpkg.symbols debian/$$pkg.symbols; \
-		dh_shlibdeps -p$$pkg; \
+		dh_shlibdeps -p$$pkg --dpkg-shlibdeps-params=--ignore-missing-info; \
 		rm -f debian/$$pkg.symbols; \
 	done
-	dh_shlibdeps --remaining-packages
+	# --dpkg-shlibdeps-params=--ignore-missing-info ignore the error that the proprietary
+	# cude-toolkit-lib components cannot be found
+	dh_shlibdeps --remaining-packages --dpkg-shlibdeps-params=--ignore-missing-info
 
 # avoid error: Unknown DWARF DW_OP_0
 override_dh_dwz:
