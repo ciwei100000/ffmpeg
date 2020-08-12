@@ -1,3 +1,16 @@
+Build
+=============
+
+- Download and install a compatible driver from the NVIDIA [web site](https://www.nvidia.com/download/index.aspx?lang=en-us)
+- Download and install the [CUDA toolkit](https://developer.nvidia.com/cuda-toolkit) 
+- Execute the following commands under the root of this repository to build the debian package
+  ```
+  $ sudo apt install devscripts
+  $ mk-build-deps -s sudo -i 
+  $ dpkg-buildpacket -b --no-sign
+  ```
+- More info, see https://developer.nvidia.com/blog/nvidia-ffmpeg-transcoding-guide/
+
 FFmpeg README
 =============
 
