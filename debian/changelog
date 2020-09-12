@@ -1,3 +1,9 @@
+ffmpeg (7:4.3.1-2c1-nonfree) unstable; urgency=medium
+
+  * Custom Version built with cuda, cuvid, nvdec and nvenc support
+
+ -- ciwei100000 <ciwei100000@gmail.com>  Tue, 11 Aug 2020 08:55:15 -0700
+
 ffmpeg (7:4.3.1-2) unstable; urgency=medium
 
   * avoid linking with pocketsphinx on bigendian archs;
