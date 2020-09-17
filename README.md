@@ -4,12 +4,21 @@ Build
 - Download and install a compatible driver from the NVIDIA [web site](https://www.nvidia.com/download/index.aspx?lang=en-us)
 - Download and install the [CUDA toolkit](https://developer.nvidia.com/cuda-toolkit) 
 - Execute the following commands under the root of this repository to build the debian package
+
+  ```
+  $ export DEB_CFLAGS_APPEND="-O3 -fdevirtualize-at-ltrans -fipa-pta"; \
+    export DEB_CXXFLAGS_APPEND="-O3 -fdevirtualize-at-ltrans -fipa-pta"; \
+    export DEB_LDFLAGS_APPEND="-O3 -fdevirtualize-at-ltrans -fipa-pta"
+  ```
+
   ```
   $ sudo apt install devscripts
   $ mk-build-deps -s sudo -i 
   $ dpkg-buildpacket -b --no-sign
   ```
 - More info, see https://developer.nvidia.com/blog/nvidia-ffmpeg-transcoding-guide/
+
+- Caveats: The current setup seems not to work for i386
 
 FFmpeg README
 =============
