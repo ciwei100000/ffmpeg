@@ -73,7 +73,6 @@ CONFIG := --prefix=/usr \
 	--enable-libxvid \
 	--enable-libzmq \
 	--enable-libzvbi \
-	--enable-lto \
 	--enable-lv2 \
 	--enable-omx \
 	--enable-openal \
@@ -102,7 +101,8 @@ CONFIG += --enable-cuda \
 endif
 
 # The standard configuration only uses the shared CONFIG.
-CONFIG_standard = --enable-shared
+CONFIG_standard = --enable-shared \
+	              --enable-lto \
 
 # Additional features, compatible with effective licensing of GPLv3+
 CONFIG_extra = --enable-shared \
