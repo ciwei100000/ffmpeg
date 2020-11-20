@@ -87,17 +87,6 @@ endif
 
 ifeq (amd64,$(DEB_HOST_ARCH))
 CONFIG += --enable-libmfx
-# hardware accelerated decoding and encoding via the h264_cuvid, hevc_cuvid and h264_nvenc, hevc_nvenc modules
-# this is added by ciwei100000 for self-use and not the original packaging rules. Need Cuda Toolkits, See: 
-# https://developer.nvidia.com/blog/nvidia-ffmpeg-transcoding-guide/
-# Non-Free and not redistributable
-CONFIG += --enable-cuda \
-	  --enable-cuvid \
-	  --enable-nvenc \
-	  --enable-nonfree \
-	  --enable-libnpp \
-	  --extra-cflags=-I/usr/local/cuda/include \
-	  --extra-ldflags=-L/usr/local/cuda/lib64
 endif
 
 # The standard configuration only uses the shared CONFIG.

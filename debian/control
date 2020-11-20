@@ -60,8 +60,6 @@ Build-Depends:
  libdc1394-22-dev [linux-any],
 # --enable-libdrm
  libdrm-dev [linux-any],
-# h264_cuvid, hevc_cuvid and h264_nvenc, hevc_nvenc modules
- libffmpeg-nvenc-dev,
 # --enable-libfontconfig
  libfontconfig1-dev,
 # --enable-libfreetype
