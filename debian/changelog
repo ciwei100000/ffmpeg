@@ -1,8 +1,9 @@
-ffmpeg (7:4.3.1-3c2-nonfree) unstable; urgency=medium
+ffmpeg (7:4.3.1-3c2) unstable; urgency=medium
 
   * Only enable LTO for shared library
+  * Remove non-free cuda support
 
- -- ciwei100000 <ciwei100000@gmail.com>  Thu, 17 Aug 2020 07:21:59 -0700
+ -- ciwei100000 <ciwei100000@gmail.com>  Fri, 20 Nov 2020 04:27:06 -0800
 
 ffmpeg (7:4.3.1-3c1-nonfree) unstable; urgency=medium
 
