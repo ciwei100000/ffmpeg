@@ -87,11 +87,12 @@ endif
 
 ifeq (amd64,$(DEB_HOST_ARCH))
 CONFIG += --enable-libmfx
+CONFIG_standard = --enable-lto
 endif
 
 # The standard configuration only uses the shared CONFIG.
-CONFIG_standard = --enable-shared \
-	              --enable-lto \
+CONFIG_standard += --enable-shared
+	              
 
 # Additional features, compatible with effective licensing of GPLv3+
 CONFIG_extra = --enable-shared \
