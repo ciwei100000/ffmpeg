@@ -98,11 +98,13 @@ CONFIG += --enable-cuda \
 	  --enable-libnpp \
 	  --extra-cflags=-I/usr/local/cuda/include \
 	  --extra-ldflags=-L/usr/local/cuda/lib64
+
+CONFIG_standard = --enable-lto
 endif
 
 # The standard configuration only uses the shared CONFIG.
-CONFIG_standard = --enable-shared \
-	              --enable-lto \
+CONFIG_standard += --enable-shared
+	              
 
 # Additional features, compatible with effective licensing of GPLv3+
 CONFIG_extra = --enable-shared \
