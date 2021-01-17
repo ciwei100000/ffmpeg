@@ -1,3 +1,33 @@
+ffmpeg (7:4.3.1-6) unstable; urgency=medium
+
+  * Team upload
+  * debian/control:
+    - Bump Standards-Version
+    - Drop obsolete Build-Depends
+    - Switch to libfontconfig-dev and libfreetype-dev
+  * debian/patches:
+    - Fix out-of-bounds write in libavcodec/exr.c (Closes: #980000)
+      (CVE-2020-35964)
+    - Fix out-of-bounds write in libavcodec/vividas.c (Closes: #979999)
+      (CVE-2020-35965)
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Tue, 12 Jan 2021 20:48:08 +0100
+
+ffmpeg (7:4.3.1-5) unstable; urgency=medium
+
+  * Team upload
+  * debian/: Temporarily disable libsrt support (see #972556 and #971754)
+    Once libsrt provides a stable ABI, support can be reenabled.
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Sun, 25 Oct 2020 09:38:59 +0100
+
+ffmpeg (7:4.3.1-4) unstable; urgency=medium
+
+  * Team upload
+  * debian/control: Switch to libdc1394-dev
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Tue, 22 Sep 2020 22:22:44 +0200
+
 ffmpeg (7:4.3.1-3c2-nonfree) unstable; urgency=medium
 
   * Only enable LTO for shared library
