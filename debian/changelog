@@ -1,3 +1,9 @@
+ffmpeg (7:4.3.1-7c1~nonfree) unstable; urgency=medium
+
+  * Merge branch '7:4.3.1-7' into ciwei100000
+
+ -- ciwei100000 <ciwei100000@gmail.com>  Mon, 25 Jan 2021 01:57:59 -0800
+
 ffmpeg (7:4.3.1-7) unstable; urgency=medium
 
   * Team upload
