@@ -9,7 +9,7 @@ Uploaders: Andreas Cadhalpun <Andreas.Cadhalpun@googlemail.com>,
  James Cowgill <jcowgill@debian.org>,
 Rules-Requires-Root: no
 Homepage: https://ffmpeg.org/
-Standards-Version: 4.5.0
+Standards-Version: 4.5.1
 Vcs-Git: https://salsa.debian.org/multimedia-team/ffmpeg.git
 Vcs-Browser: https://salsa.debian.org/multimedia-team/ffmpeg
 Build-Depends-Indep:
@@ -24,8 +24,6 @@ Build-Depends-Indep:
 Build-Depends:
 # needed for dh
  debhelper-compat (= 13),
-# for build-profile support
- dpkg-dev (>= 1.17.14),
 # --enable-libflite
  flite1-dev,
 # --enable-frei0r
@@ -40,8 +38,6 @@ Build-Depends:
  libass-dev,
 # --enable-libbluray
  libbluray-dev,
-# TODO: drop when declared by libfreetype-dev (see bug#964185)
- libbrotli-dev,
 # --enable-libbs2b
  libbs2b-dev,
 # autodetected: external library 'bzlib'
@@ -57,13 +53,13 @@ Build-Depends:
 # --enable-libdav1d
  libdav1d-dev,
 # --enable-libdc1394
- libdc1394-22-dev [linux-any],
+ libdc1394-dev [linux-any],
 # --enable-libdrm
  libdrm-dev [linux-any],
 # --enable-libfontconfig
- libfontconfig1-dev,
+ libfontconfig-dev,
 # --enable-libfreetype
- libfreetype6-dev,
+ libfreetype-dev | libfreetype6-dev,
 # --enable-fribidi
  libfribidi-dev,
 # --enable-opengl
