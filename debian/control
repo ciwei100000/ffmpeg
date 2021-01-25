@@ -61,7 +61,7 @@ Build-Depends:
 # --enable-libfontconfig
  libfontconfig-dev,
 # --enable-libfreetype
- libfreetype-dev,
+ libfreetype-dev | libfreetype6-dev,
 # --enable-fribidi
  libfribidi-dev,
 # --enable-opengl
@@ -127,7 +127,7 @@ Build-Depends:
 # --enable-libspeex
  libspeex-dev,
 # --enable-libsrt
- libsrt-gnutls-dev (<< 1.4.2),
+ libsrt-gnutls-dev,
 # --enable-libssh
  libssh-gcrypt-dev,
 # --enable-libtesseract (used only in -extra flavor)
@@ -187,7 +187,7 @@ Build-Depends:
  nasm,
  pkg-kde-tools,
 # autodetected zlib
- zlib1g-dev,
+ zlib1g-dev
 
 Package: ffmpeg
 Architecture: any
