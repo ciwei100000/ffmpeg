@@ -1,3 +1,9 @@
+ffmpeg (7:4.3.2-0+deb11u1c1~nonfree) unstable; urgency=medium
+
+  * Merge branch '7:4.3.2-0+deb11u1' into ciwei100000
+
+ -- ciwei100000 <ciwei100000@gmail.com>  Thu, 4 Mar 2021 19:14:23 -0800
+
 ffmpeg (7:4.3.2-0+deb11u1) unstable; urgency=medium
 
   * New upstream release
