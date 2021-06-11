@@ -1,3 +1,9 @@
+ffmpeg (7:4.3.2-0+deb11u2c1~nonfree) unstable; urgency=medium
+
+  * Merge branch '7:4.3.2-0+deb11u2' into ciwei100000
+
+ -- ciwei100000 <ciwei100000@gmail.com>  Thu, 10 Jun 2021 22:36:11 -0700
+
 ffmpeg (7:4.3.2-0+deb11u2) unstable; urgency=medium
 
   * debian/patches: Apply upstream patches for CVEs (Closes: #989439)
