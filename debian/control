@@ -2,14 +2,14 @@ Source: ffmpeg
 Section: video
 Priority: optional
 Maintainer: Debian Multimedia Maintainers <debian-multimedia@lists.debian.org>
-Uploaders: Andreas Cadhalpun <Andreas.Cadhalpun@googlemail.com>,
- Alexander Strasser <eclipse7@gmx.net>,
+Uploaders:
  Reinhard Tartler <siretart@tauware.de>,
  Balint Reczey <balint@balintreczey.hu>,
  James Cowgill <jcowgill@debian.org>,
+ Sebastian Ramacher <sramacher@debian.org>,
 Rules-Requires-Root: no
 Homepage: https://ffmpeg.org/
-Standards-Version: 4.5.1
+Standards-Version: 4.6.0
 Vcs-Git: https://salsa.debian.org/multimedia-team/ffmpeg.git
 Vcs-Browser: https://salsa.debian.org/multimedia-team/ffmpeg
 Build-Depends-Indep:
@@ -22,7 +22,8 @@ Build-Depends-Indep:
 # generates top level manual page listing
  tree,
 Build-Depends:
-# needed for dh
+# autodetected: hwaccels 'cuda_llvm'
+ clang,
  debhelper-compat (= 13),
 # --enable-libflite
  flite1-dev,
@@ -61,15 +62,15 @@ Build-Depends:
 # --enable-libfontconfig
  libfontconfig-dev,
 # --enable-libfreetype
- libfreetype-dev | libfreetype6-dev,
+ libfreetype-dev,
 # --enable-fribidi
  libfribidi-dev,
 # --enable-opengl
- libgl1-mesa-dev,
+ libgl1-mesa-dev | libgl-dev,
 # --enable-libgme
  libgme-dev,
 # --enable-gnutls
- libgnutls28-dev | libgnutls-dev,
+ libgnutls28-dev,
 # --enable-libgsm
  libgsm1-dev,
 # Fails to be detected by configure script, if not also libavc1394-dev is installed.
@@ -78,8 +79,6 @@ Build-Depends:
  libavc1394-dev [linux-any],
 # --enable-libjack
  libjack-jackd2-dev,
-# --enable-liblensfun (used only in -extra flavor)
- liblensfun-dev,
 # --enable-lv2
  liblilv-dev,
 # autodetected for the tiff decoder
@@ -113,13 +112,15 @@ Build-Depends:
 # --enable-librubberband
  librubberband-dev,
 # --enable-librsvg
- librsvg2-dev,
+ librsvg2-dev [!alpha !hppa !hurd-i386 !ia64 !kfreebsd-amd64 !kfreebsd-i386 !m86k !sh4 !x32],
 # autodetected: protocol 'sctp'
  libsctp-dev [linux-any],
 # --enable-sdl2
  libsdl2-dev,
 # --enable-libshine
  libshine-dev (>= 3.0.0),
+# --enable-libsmbclient (used only in -extra flavor)
+ libsmbclient-dev (>= 4.13) [!hurd-i386],
 # --enable-libsnappy
  libsnappy-dev,
 # --enable-libsoxr
@@ -151,8 +152,6 @@ Build-Depends:
  libvorbis-dev,
 # --enable-libvpx
  libvpx-dev,
-# --enable-libwavpack
- libwavpack-dev,
 # --enable-libwebp
  libwebp-dev,
 # --enable-libx264
@@ -173,6 +172,8 @@ Build-Depends:
  libxvidcore-dev,
 # autodetected: decoder 'mpeg_xvmc'; outdev 'xv'
  libxvmc-dev,
+# --enable-libzimg
+ libzimg-dev,
 # --enable-libzmq
  libzmq3-dev,
 # --enable-libzvbi
@@ -197,11 +198,6 @@ Depends:
  ${misc:Depends}
 Suggests:
  ffmpeg-doc
-Breaks: libav-tools (<< 6:12~~),
- qt-faststart (<< 7:2.7.1-3~),
- winff (<< 1.5.5-5~),
-Replaces: libav-tools (<< 6:12~~),
- qt-faststart (<< 7:2.7.1-3~)
 Description: Tools for transcoding, streaming and playing of multimedia files
  FFmpeg is the leading multimedia framework, able to decode, encode, transcode,
  mux, demux, stream, filter and play pretty much anything that humans and
@@ -236,8 +232,6 @@ Package: libavcodec58
 Architecture: any
 Section: libs
 Multi-Arch: same
-Pre-Depends:
- ${misc:Pre-Depends}
 Depends:
  ${shlibs:Depends},
  ${misc:Depends}
@@ -263,8 +257,6 @@ Section: libs
 Multi-Arch: same
 Conflicts: libavcodec58
 Provides: libavcodec58 (= ${binary:Version})
-Pre-Depends:
- ${misc:Pre-Depends}
 Depends:
  ${shlibs:Depends},
  ${misc:Depends}
@@ -311,7 +303,6 @@ Description: FFmpeg library with extra codecs (metapackage)
  that offers additional codec support. Application packages can depend
  on it if they require or suggest this variant in a robust manner.
 
-
 Package: libavcodec-dev
 Architecture: any
 Section: libdevel
@@ -341,8 +332,6 @@ Package: libavdevice58
 Architecture: any
 Section: libs
 Multi-Arch: same
-Pre-Depends:
- ${misc:Pre-Depends}
 Depends:
  ${shlibs:Depends},
  ${misc:Depends}
@@ -388,8 +377,6 @@ Package: libavfilter7
 Architecture: any
 Section: libs
 Multi-Arch: same
-Pre-Depends:
- ${misc:Pre-Depends}
 Depends:
  ${shlibs:Depends},
  ${misc:Depends}
@@ -410,8 +397,6 @@ Section: libs
 Multi-Arch: same
 Conflicts: libavfilter7
 Provides: libavfilter7 (= ${binary:Version})
-Pre-Depends:
- ${misc:Pre-Depends}
 Depends:
  ${shlibs:Depends},
  ${misc:Depends}
@@ -427,7 +412,6 @@ Description: FFmpeg library with extra media filters - runtime files
  This package replaces the libavfilter6 package and contains the
  following additional filters:
  .
-  * Lens correction using Lensfun
   * Optical Character Recognition (uses Tesseract)
  .
  Because this package links against libraries that are licensed under
@@ -479,8 +463,6 @@ Package: libavformat58
 Architecture: any
 Section: libs
 Multi-Arch: same
-Pre-Depends:
- ${misc:Pre-Depends}
 Depends:
  ${shlibs:Depends},
  ${misc:Depends}
@@ -496,6 +478,52 @@ Description: FFmpeg library with (de)muxers for multimedia containers - runtime 
  supports several input and output protocols to access a media resource.
  .
  This package contains the runtime files.
+
+Package: libavformat-extra58
+Architecture: any
+Section: libs
+Multi-Arch: same
+Conflicts: libavformat58
+Provides: libavformat58 (= ${binary:Version})
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends}
+Description: FFmpeg library with additional (de)muxers for multimedia containers
+ FFmpeg is the leading multimedia framework, able to decode, encode, transcode,
+ mux, demux, stream, filter and play pretty much anything that humans and
+ machines have created. It supports the most obscure ancient formats up to the
+ cutting edge.
+ .
+ This library provides a generic framework for multiplexing and demultiplexing
+ (muxing and demuxing) audio, video and subtitle streams. It encompasses
+ multiple muxers and demuxers for multimedia container formats. It also
+ supports several input and output protocols to access a media resource.
+ .
+ This package replaces the libavformat58 package and contains the
+ following additional (de)muxers:
+ .
+  * SMB protocol (using libsmbclient)
+ .
+ Because this package links against libraries that are licensed under
+ Apache License 2.0 or GPL version 3, the resulting binaries are distributed
+ under the GPL version 3 or later.
+
+Package: libavformat-extra
+Architecture: any
+Section: metapackages
+Multi-Arch: same
+Depends:
+ libavformat-extra58 (= ${binary:Version}),
+ ${misc:Depends}
+Description: FFmpeg library with extra (de)muxers (metapackage)
+ FFmpeg is the leading multimedia framework, able to decode, encode, transcode,
+ mux, demux, stream, filter and play pretty much anything that humans and
+ machines have created. It supports the most obscure ancient formats up to the
+ cutting edge.
+ .
+ This metapackage depends on the latest version of the libavformat variant
+ that offers additional (de)muxers support. Application packages can depend
+ on it if they require or suggest this variant in a robust manner.
 
 Package: libavformat-dev
 Architecture: any
@@ -520,51 +548,10 @@ Description: FFmpeg library with (de)muxers for multimedia containers - developm
  .
  This package contains the development files.
 
-Package: libavresample4
-Architecture: any
-Section: libs
-Multi-Arch: same
-Pre-Depends:
- ${misc:Pre-Depends}
-Depends:
- ${shlibs:Depends},
- ${misc:Depends}
-Description: FFmpeg compatibility library for resampling - runtime files
- FFmpeg is the leading multimedia framework, able to decode, encode, transcode,
- mux, demux, stream, filter and play pretty much anything that humans and
- machines have created. It supports the most obscure ancient formats up to the
- cutting edge.
- .
- This library is provided for compatibility reasons only.
- The FFmpeg project advises to use libswresample instead.
- .
- This package contains the runtime files.
-
-Package: libavresample-dev
-Architecture: any
-Section: libdevel
-Multi-Arch: same
-Depends:
- libavutil-dev (= ${binary:Version}),
- libavresample4 (= ${binary:Version}),
- ${misc:Depends}
-Description: FFmpeg compatibility library for resampling - development files
- FFmpeg is the leading multimedia framework, able to decode, encode, transcode,
- mux, demux, stream, filter and play pretty much anything that humans and
- machines have created. It supports the most obscure ancient formats up to the
- cutting edge.
- .
- This library is provided for compatibility reasons only.
- The FFmpeg project advises to use libswresample instead.
- .
- This package contains the development files.
-
 Package: libavutil56
 Architecture: any
 Section: libs
 Multi-Arch: same
-Pre-Depends:
- ${misc:Pre-Depends}
 Depends:
  ${shlibs:Depends},
  ${misc:Depends}
@@ -609,8 +596,6 @@ Package: libpostproc55
 Architecture: any
 Section: libs
 Multi-Arch: same
-Pre-Depends:
- ${misc:Pre-Depends}
 Depends:
  ${shlibs:Depends},
  ${misc:Depends}
@@ -646,8 +631,6 @@ Package: libswresample3
 Architecture: any
 Section: libs
 Multi-Arch: same
-Pre-Depends:
- ${misc:Pre-Depends}
 Depends:
  ${shlibs:Depends},
  ${misc:Depends}
@@ -657,7 +640,7 @@ Description: FFmpeg library for audio resampling, rematrixing etc. - runtime fil
  machines have created. It supports the most obscure ancient formats up to the
  cutting edge.
  .
- This library provides performs highly optimized audio resampling, rematrixing
+ This library performs highly optimized audio resampling, rematrixing
  and sample format conversion operations.
  Specifically, this library performs the following conversions:
   * Resampling is the process of changing the audio rate, for example from a
@@ -692,7 +675,7 @@ Description: FFmpeg library for audio resampling, rematrixing etc. - development
  machines have created. It supports the most obscure ancient formats up to the
  cutting edge.
  .
- This library provides performs highly optimized audio resampling, rematrixing
+ This library performs highly optimized audio resampling, rematrixing
  and sample format conversion operations.
  Specifically, this library performs the following conversions:
   * Resampling is the process of changing the audio rate, for example from a
@@ -717,8 +700,6 @@ Package: libswscale5
 Architecture: any
 Section: libs
 Multi-Arch: same
-Pre-Depends:
- ${misc:Pre-Depends}
 Depends:
  ${shlibs:Depends},
  ${misc:Depends}

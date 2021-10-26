@@ -1,3 +1,93 @@
+ffmpeg (7:4.4-6) unstable; urgency=medium
+
+  * debian/*.symbols: Bump version of symbols to match upstream release
+  * debian/ffmpeg.maintscript: Drop removal of old conffile
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Thu, 09 Sep 2021 22:45:41 +0200
+
+ffmpeg (7:4.4-5) unstable; urgency=medium
+
+  * Upload to unstable
+  * debian/control: Bump Standards-Version
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Sun, 22 Aug 2021 14:34:35 +0200
+
+ffmpeg (7:4.4-4) experimental; urgency=medium
+
+  * debian/rules:
+    - Add -latomic via --extra-libs
+    - Fix architecture check for libsmbclient
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Mon, 09 Aug 2021 12:29:18 +0200
+
+ffmpeg (7:4.4-3) experimental; urgency=medium
+
+  * debian/rules: Fix architecture check for -latomic
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Sun, 08 Aug 2021 23:11:58 +0200
+
+ffmpeg (7:4.4-2) experimental; urgency=medium
+
+  * debian/control: Fix Description of libswscale3 (Closes: #984795)
+  * debian/rules: Link with -latomic on armel and mipsel
+  * debian/:
+    - Properly disable libsmbclient support only on hurd-i386 (Closes:
+      #991558)
+    - Disable librvsg2 on even more ports architectures (Closes: #991556)
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Sun, 08 Aug 2021 21:38:36 +0200
+
+ffmpeg (7:4.4-1) experimental; urgency=medium
+
+  * New upstream release
+  * debian/control:
+    - Remove obsolete alternative BDs
+    - Bump libsmbclient-dev to 4.13 to avoid #984486
+    - Add clang to BD to enable cuda_llvm
+  * debian/:
+    - Remove --enable-libwavpack
+    - Remove --enable-liblensfun. liblensfun support is currently incompatible
+      with any of the released liblensfun versions.
+  * debian/patches: Drop patches from upstream
+  * debian/copyright: Update copyright years
+  * debian/*.symbols: Add new symbols
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Sun, 11 Apr 2021 15:09:21 +0200
+
+ffmpeg (7:4.3.2-2) experimental; urgency=medium
+
+  * debian/:
+    - Build with zimg (Closes: #966059)
+    - Disable librsvg on hppa and sh4 (Closes: #983344)
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Sun, 28 Feb 2021 14:49:11 +0100
+
+ffmpeg (7:4.3.2-1) experimental; urgency=medium
+
+  * New upstream release
+  * debian/control: Add libgl-dev as alternative Build-Depends
+  * debian/patches: Remove patches integrated upstream
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Sun, 21 Feb 2021 22:15:58 +0100
+
+ffmpeg (7:4.3.1-9) experimental; urgency=medium
+
+  [ Fabian Greffrath ]
+  * add a libavformat-extra package that contains additional (de)muxers
+    (Closes: #972897)
+
+  [ Sebastian Ramacher ]
+  * debian/control:
+    - Remove empty Pre-Depends
+    - Add myself to Uploaders
+    - Remove Andreas Cadhalpun und Alexander Strasser from Uploaders. They are
+      no longer active.
+    - Remove obsolete Breaks+Replaces
+  * debian/: Remove deprecated libavresample (Closes: #971318)
+  * debian/copyright: Restore compatibility with Copyright-Format 1.0
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Sun, 21 Feb 2021 16:33:16 +0100
+
 ffmpeg (7:4.3.2-0+deb11u2c1~nonfree) unstable; urgency=medium
 
   * Merge branch '7:4.3.2-0+deb11u2' into ciwei100000

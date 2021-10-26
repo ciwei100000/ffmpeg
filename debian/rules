@@ -28,7 +28,6 @@ CONFIG := --prefix=/usr \
 	--arch=$(DEB_HOST_ARCH_CPU) \
 	--enable-gpl \
 	--disable-stripping \
-	--enable-avresample --disable-filter=resample \
 	--enable-gnutls \
 	--enable-ladspa \
 	--enable-libaom \
@@ -53,7 +52,6 @@ CONFIG := --prefix=/usr \
 	--enable-libopus \
 	--enable-libpulse \
 	--enable-librabbitmq \
-	--enable-librsvg \
 	--enable-librubberband \
 	--enable-libshine \
 	--enable-libsnappy \
@@ -66,11 +64,11 @@ CONFIG := --prefix=/usr \
 	--enable-libvidstab \
 	--enable-libvorbis \
 	--enable-libvpx \
-	--enable-libwavpack \
 	--enable-libwebp \
 	--enable-libx265 \
 	--enable-libxml2 \
 	--enable-libxvid \
+	--enable-libzimg \
 	--enable-libzmq \
 	--enable-libzvbi \
 	--enable-lv2 \
@@ -80,9 +78,19 @@ CONFIG := --prefix=/usr \
 	--enable-opengl \
 	--enable-sdl2 
 
+# link with -latomic on armel and mipsel (https://trac.ffmpeg.org/ticket/9275)
+ifneq (,$(filter armel mipsel,$(DEB_HOST_ARCH)))
+CONFIG += --extra-libs=-latomic
+endif
+
 # avoid pocketsphinx on mips (bug#812335), alpha, ia64 and big-endian (bug#968456)
 ifeq (,$(filter mips% alpha ia64,$(DEB_HOST_ARCH))$(filter big,$(DEB_HOST_ARCH_ENDIAN)))
-	CONFIG += --enable-pocketsphinx
+CONFIG += --enable-pocketsphinx
+endif
+
+# avoid librsvg on almost all ports (bug#983344, bug#991556)
+ifeq (,$(filter alpha hppa hurd-i386 ia64 kfreebsd-amd64 kfreebsd-i386 m86k sh4 x32,$(DEB_HOST_ARCH)))
+CONFIG += --enable-librsvg
 endif
 
 ifeq (amd64,$(DEB_HOST_ARCH))
@@ -112,11 +120,15 @@ CONFIG_extra = --enable-shared \
 	--disable-doc \
 	--disable-programs \
 	--enable-libaribb24 \
-	--enable-liblensfun \
 	--enable-libopencore_amrnb \
 	--enable-libopencore_amrwb \
 	--enable-libtesseract \
 	--enable-libvo_amrwbenc
+
+# Do not enable libsmbclient support on hurd-i386
+ifeq (,$(filter hurd-i386,$(DEB_HOST_ARCH)))
+	CONFIG_extra += --enable-libsmbclient
+endif
 
 # The static libraries should not be built with PIC.
 CONFIG_static = --disable-pic \
@@ -247,7 +259,7 @@ prebuild_%:
 $(patsubst %,prebuild_%,$(filter %extra,$(FLAVORS))): prebuild_%: build_standard
 	$(info $()   debian/rules $@)
 	$(eval subdir = debian/$(subst extra,standard,$(subst -extra,,$*)))
-	cd $(subdir) && find libavcodec libavdevice libavfilter libavformat libavresample libavutil libpostproc libswscale libswresample \
+	cd $(subdir) && find libavcodec libavdevice libavfilter libavformat libavutil libpostproc libswscale libswresample \
 		-type f -name '*.o' \
 		-exec install -m 644 -D -T '{}' '../$*/{}' ';'
 	rm debian/$*/libavcodec/allcodecs.o
@@ -264,7 +276,7 @@ build_%: prebuild_%
 
 # Set the library path for the dynamic linker, because the tests otherwise don't find the libraries.
 override_dh_auto_test-arch:
-	export LD_LIBRARY_PATH="libavcodec:libavdevice:libavfilter:libavformat:libavresample:libavutil:libpostproc:libswresample:libswscale"; \
+	export LD_LIBRARY_PATH="libavcodec:libavdevice:libavfilter:libavformat:libavutil:libpostproc:libswresample:libswscale"; \
 		dh_auto_test -a --sourcedirectory=debian/standard -- -k
 
 # No tests for indep build.
@@ -313,4 +325,4 @@ override_dh_shlibdeps:
 
 # avoid error: Unknown DWARF DW_OP_0
 override_dh_dwz:
-	dh_dwz -Xlibavcodec -Xlibavfilter -Xlibavresample -Xlibavutil -Xlibswresample -Xlibswscale
+	dh_dwz -Xlibavcodec -Xlibavfilter -Xlibavutil -Xlibswresample -Xlibswscale
