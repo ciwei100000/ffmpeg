@@ -1,3 +1,9 @@
+ffmpeg (7:4.4-6c1~nonfree) unstable; urgency=medium
+
+  * Merge tag 'debian/7%4.4-6' into ciwei100000
+
+ -- Xuqing Liu <ciwei100000@gmail.com>  Tue, 26 Oct 2021 10:07:25 -0700
+
 ffmpeg (7:4.4-6) unstable; urgency=medium
 
   * debian/*.symbols: Bump version of symbols to match upstream release
