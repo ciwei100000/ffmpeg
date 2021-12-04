@@ -1,3 +1,9 @@
+ffmpeg (7:4.4.1-2c1~nonfree) unstable; urgency=medium
+
+  * Merge tag 'debian/7%4.4.1-2' into ciwei100000
+
+ -- Xuqing Liu <ciwei100000@gmail.com>  Sat, 04 Dec 2021 00:57:17 -0800
+
 ffmpeg (7:4.4.1-2) unstable; urgency=medium
 
   * debian/control: Add Build-Depends on libffmpeg-nvenc-dev on amd64, arm64
