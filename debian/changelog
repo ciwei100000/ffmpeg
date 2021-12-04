@@ -1,3 +1,18 @@
+ffmpeg (7:4.4.1-2) unstable; urgency=medium
+
+  * debian/control: Add Build-Depends on libffmpeg-nvenc-dev on amd64, arm64
+    and i386 (Closes: #925941)
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Sun, 21 Nov 2021 18:48:57 +0100
+
+ffmpeg (7:4.4.1-1) unstable; urgency=medium
+
+  * New upstream version 4.4.1
+  * debian/tests: Limit the number of threads to max of 8
+  * debian/patches: Apply upstream patch to fix build on armhf with GCC 11
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Thu, 28 Oct 2021 21:43:55 +0200
+
 ffmpeg (7:4.4-6c1~nonfree) unstable; urgency=medium
 
   * Merge tag 'debian/7%4.4-6' into ciwei100000

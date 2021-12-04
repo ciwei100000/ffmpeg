@@ -57,8 +57,8 @@ Build-Depends:
  libdc1394-dev [linux-any],
 # --enable-libdrm
  libdrm-dev [linux-any],
-# h264_cuvid, hevc_cuvid and h264_nvenc, hevc_nvenc modules
- libffmpeg-nvenc-dev,
+# autodected: ffnvcodec
+ libffmpeg-nvenc-dev [amd64 arm64 i386],
 # --enable-libfontconfig
  libfontconfig-dev,
 # --enable-libfreetype
