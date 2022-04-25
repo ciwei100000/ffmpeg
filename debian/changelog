@@ -1,3 +1,9 @@
+ffmpeg (7:4.4.2-1c1~nonfree) unstable; urgency=medium
+
+  * Merge tag 'debian/7%4.4.2-1' into ciwei100000
+
+ -- Xuqing Liu <ciwei100000@gmail.com>  Sun, 24 Apr 2022 20:50:47 -0700
+
 ffmpeg (7:4.4.2-1) unstable; urgency=medium
 
   * New upstream version 4.4.2
