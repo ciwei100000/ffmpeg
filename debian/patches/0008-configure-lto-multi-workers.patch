@@ -1,0 +1,38 @@
+From: Xuqing Liu <ciwei100000@gmail.com>
+Date: Sun, 11 Dec 2022 13:22:03 -0800
+Subject: perform LTO with 32 workers
+
+
+diff --git a/configure b/configure
+index ba5793b2..b13c86da 100755
+--- a/configure
++++ b/configure
+@@ -4623,7 +4623,7 @@ icl_flags(){
+             # on Windows, does enable remarks so disable them here.
+             -Wall)                echo $flag -Qdiag-disable:remark ;;
+             -std=c99)             echo -Qstd=c99 ;;
+-            -flto)                echo -ipo ;;
++            -flto=32)                echo -ipo ;;
+         esac
+     done
+ }
+@@ -4631,7 +4631,7 @@ icl_flags(){
+ icc_flags(){
+     for flag; do
+         case $flag in
+-            -flto)                echo -ipo ;;
++            -flto=32)                echo -ipo ;;
+             *)                    echo $flag ;;
+         esac
+     done
+@@ -7126,8 +7126,8 @@ check_optflags -fno-signed-zeros
+ 
+ if enabled lto; then
+     test "$cc_type" != "$ld_type" && die "LTO requires same compiler and linker"
+-    check_cflags  -flto
+-    check_ldflags -flto $cpuflags
++    check_cflags  -flto=32
++    check_ldflags -flto=32 $cpuflags
+     disable inline_asm_direct_symbol_refs
+ fi
+ 
