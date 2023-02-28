@@ -1,3 +1,9 @@
+ffmpeg (7:5.1.2-3c1~nonfree) unstable; urgency=medium
+
+  * Merge tag 'debian/7%5.1.2-3' into ciwei100000
+
+ -- Xuqing Liu <ciwei100000@gmail.com>  Mon, 27 Feb 2023 16:14:09 -0800
+
 ffmpeg (7:5.1.2-3) unstable; urgency=medium
 
   * debian/rules: Disable more tests on ppc64 (Closes: #1022764)
