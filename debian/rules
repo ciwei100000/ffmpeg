@@ -347,6 +347,10 @@ execute_before_dh_makeshlibs: $(patsubst %,debian/%.symbols,$(SHLIB_PKGS))
 		mainpkg=`echo $$pkg | sed 's/-extra//'`; \
 		cp -f debian/$$mainpkg.symbols debian/$$pkg.symbols; \
 	done
+override_dh_shlibdeps:
+	# --dpkg-shlibdeps-params=--ignore-missing-info ignore the error that the proprietary
+	# cude-toolkit-lib components cannot be found
+	dh_shlibdeps --dpkg-shlibdeps-params=--ignore-missing-info
 
 # avoid error: Unknown DWARF DW_OP_0
 override_dh_dwz:
