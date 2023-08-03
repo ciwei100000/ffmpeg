@@ -1,3 +1,9 @@
+ffmpeg (7:6.0-4c1~nonfree) unstable; urgency=medium
+
+  * Merge tag 'debian/7%6.0-4' into ciwei100000
+
+ -- Xuqing Liu <ciwei100000@gmail.com>  Thu, 3 Aug 2023 03:45:47 -0700
+
 ffmpeg (7:6.0-4) unstable; urgency=medium
 
   * Upload to unstable
