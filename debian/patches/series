@@ -1,2 +1,3 @@
-0001-hwcontext_vulkan-remove-optional-encode-decode-exten.patch
+0001-avcodec-x86-mathops-clip-constants-used-with-shift-i.patch
+0002-examples-fix-build-of-mux-and-resample_audio.patch
 0008-configure-lto-multi-workers.patch

@@ -79,46 +79,46 @@ CONFIG := --prefix=/usr \
 	--enable-openal \
 	--enable-opencl \
 	--enable-opengl \
-	--enable-sdl2 
+	--enable-sdl2
 
 # disable sndio, it's pulled in via libopenal-dev and autodetected
 CONFIG += --disable-sndio
 
 # avoid libjxl on alpha for now
 ifneq (alpha,$(DEB_HOST_ARCH))
-CONFIG += --enable-libjxl
+	CONFIG += --enable-libjxl
 endif
 
 # avoid pocketsphinx on mips (bug#812335), alpha, ia64 and big-endian (bug#968456)
 ifeq (,$(filter mips% alpha ia64,$(DEB_HOST_ARCH))$(filter big,$(DEB_HOST_ARCH_ENDIAN)))
-CONFIG += --enable-pocketsphinx
+	CONFIG += --enable-pocketsphinx
 endif
 
 # avoid librsvg on almost all ports (bug#983344, bug#991556)
-ifeq (,$(filter alpha hppa hurd-i386 ia64 kfreebsd-amd64 kfreebsd-i386 m68k sh4 x32,$(DEB_HOST_ARCH)))
-CONFIG += --enable-librsvg
+ifeq (,$(filter alpha hppa hurd-i386 ia64 m68k sh4 x32,$(DEB_HOST_ARCH)))
+	CONFIG += --enable-librsvg
 endif
 
 ifeq (amd64,$(DEB_HOST_ARCH))
-CONFIG += --enable-libmfx
+	CONFIG += --enable-libvpl \
+		--disable-libmfx
 # hardware accelerated decoding and encoding via the h264_cuvid, hevc_cuvid and h264_nvenc, hevc_nvenc modules
 # this is added by ciwei100000 for self-use and not the original packaging rules. Need Cuda Toolkits, See: 
 # https://developer.nvidia.com/blog/nvidia-ffmpeg-transcoding-guide/
 # Non-Free and not redistributable
-CONFIG += --enable-cuda \
-	  --enable-cuvid \
-	  --enable-nvenc \
-	  --enable-nonfree \
-	  --enable-libnpp \
-	  --extra-cflags=-I/usr/local/cuda/include \
-	  --extra-ldflags=-L/usr/local/cuda/lib64
+        CONFIG += --enable-cuda \
+	        --enable-cuvid \
+	        --enable-nvenc \
+	        --enable-nonfree \
+	        --enable-libnpp \
+	        --extra-cflags=-I/usr/local/cuda/include \
+	        --extra-ldflags=-L/usr/local/cuda/lib64
 
-CONFIG_standard = --enable-lto
+        CONFIG_standard = --enable-lto
 endif
 
 # The standard configuration only uses the shared CONFIG.
-CONFIG_standard += --enable-shared
-	              
+CONFIG_standard = --enable-shared
 
 # Additional features, compatible with effective licensing of GPLv3+
 CONFIG_extra = --enable-shared \
@@ -184,7 +184,7 @@ else
 	CONFIG += --disable-libplacebo
 endif
 # Rust not available on most of ports
-ifeq (,$(filter alpha hppa hurd-i386 ia64 kfreebsd-amd64 kfreebsd-i386 m68k riscv64 sh4 sparc64 x32,$(DEB_HOST_ARCH)))
+ifeq (,$(filter alpha hppa hurd-i386 ia64 m68k riscv64 sh4 sparc64 x32,$(DEB_HOST_ARCH)))
 	CONFIG += --enable-librav1e
 else
 	CONFIG += --disable-librav1e
@@ -340,23 +340,18 @@ override_dh_install:
 	dh_install $(addprefix -p,$(EXTRA_PKGS)) --sourcedir=debian/tmp/extra
 	dh_install --remaining-packages
 
-override_dh_shlibdeps:
-	$(RM) debian/shlibs.local
-	set -e && for pkg in $(SHLIB_PKGS); do \
-		lib=`echo $$pkg | sed 's/\([a-z]*\)\([0-9]*\)/\1/'`; \
-		abi=`echo $$pkg | sed 's/\([a-z]*\)\([0-9]*\)/\2/'`; \
-		ver=${DEB_VERSION}; \
-		echo "$$lib $$abi $$pkg (= $$ver)" >> debian/shlibs.local; \
-	done
+debian/%.symbols: debian/%.symbols.in
+	sed 's/@DEB_VERSION@/${DEB_VERSION}/;s/@DEB_VERSION_EPOCH_UPSTREAM@/${DEB_VERSION_EPOCH_UPSTREAM}/' $< > $@
+
+execute_before_dh_makeshlibs: $(patsubst %,debian/%.symbols,$(SHLIB_PKGS))
 	set -e && for pkg in $(EXTRA_PKGS); do \
 		mainpkg=`echo $$pkg | sed 's/-extra//'`; \
 		cp -f debian/$$mainpkg.symbols debian/$$pkg.symbols; \
-		dh_shlibdeps -p$$pkg --dpkg-shlibdeps-params=--ignore-missing-info; \
-		rm -f debian/$$pkg.symbols; \
 	done
+override_dh_shlibdeps:
 	# --dpkg-shlibdeps-params=--ignore-missing-info ignore the error that the proprietary
 	# cude-toolkit-lib components cannot be found
-	dh_shlibdeps --remaining-packages --dpkg-shlibdeps-params=--ignore-missing-info
+	dh_shlibdeps --dpkg-shlibdeps-params=--ignore-missing-info
 
 # avoid error: Unknown DWARF DW_OP_0
 override_dh_dwz:

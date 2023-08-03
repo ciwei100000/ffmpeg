@@ -1,3 +1,47 @@
+ffmpeg (7:6.0-4) unstable; urgency=medium
+
+  * Upload to unstable
+  * debian/tests: No longer test svq1 codec with matroska.
+  * debian/patches: Fix build of examples
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Thu, 27 Jul 2023 08:58:41 +0200
+
+ffmpeg (7:6.0-3) experimental; urgency=medium
+
+  * debian/tests: No longer test deprecated ayuv codec
+  * debian/patches: Fix build with binutils 2.41
+  * debian/: Remove handling of kfreebsd
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Mon, 17 Jul 2023 22:22:59 +0200
+
+ffmpeg (7:6.0-2) experimental; urgency=medium
+
+  * debian/: Produce tight dependencies only for internal use of avpriv
+    symbols (Closes: #1034315)
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Thu, 13 Apr 2023 23:24:21 +0200
+
+ffmpeg (7:6.0-1) experimental; urgency=medium
+
+  * New upstream version 6.0
+  * SONAME bumps
+    - libavcodec59 -> libavcodec60
+    - libavdevice59 -> libavdevice60
+    - libavfilter8 -> libavfilter9
+    - libavformat59 -> libavformat60
+    - libavutil57 -> libavutil58
+    - libpostproc56 -> libpostproc57
+    - libswscale6 -> libswscale7
+  * debian/patches: Remove patches included upstream
+  * debian/gbp.conf: Work in debian/experimental
+  * debian/: Build with oneVPL support (Closes: #1023718)
+  * debian/control: Remove lbgl1-mesa-dev from Build-Depends
+  * debian/copyright:
+    - Update copyright years
+    - Update file paths
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Sun, 05 Mar 2023 15:47:45 +0100
+
 ffmpeg (7:5.1.2-3c1~nonfree) unstable; urgency=medium
 
   * Merge tag 'debian/7%5.1.2-3' into ciwei100000
