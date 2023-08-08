@@ -1,3 +1,9 @@
+ffmpeg (7:6.0-5c1~nonfree) unstable; urgency=medium
+
+  * manually add debian/6.0-5
+
+ -- Xuqing Liu <ciwei100000@gmail.com>  Tue, 8 Aug 2023 06:44:13 -0700
+
 ffmpeg (7:6.0-5) unstable; urgency=medium
 
   * debian/patches: Apply upstream patches for libplacebo 6.292 (Closes:
