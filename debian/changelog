@@ -1,3 +1,10 @@
+ffmpeg (7:6.0-5) unstable; urgency=medium
+
+  * debian/patches: Apply upstream patches for libplacebo 6.292 (Closes:
+    #1042812)
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Tue, 01 Aug 2023 13:32:04 +0200
+
 ffmpeg (7:6.0-4c1~nonfree) unstable; urgency=medium
 
   * Merge tag 'debian/7%6.0-4' into ciwei100000
