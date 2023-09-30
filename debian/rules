@@ -125,6 +125,7 @@ CONFIG_extra = --enable-shared \
 	--enable-version3 \
 	--disable-doc \
 	--disable-programs \
+	--disable-static \
 	--enable-libaribb24 \
 	--enable-libopencore_amrnb \
 	--enable-libopencore_amrwb \
@@ -135,11 +136,6 @@ CONFIG_extra = --enable-shared \
 ifeq (,$(filter hurd-i386,$(DEB_HOST_ARCH)))
 	CONFIG_extra += --enable-libsmbclient
 endif
-
-# The static libraries should not be built with PIC.
-CONFIG_static = --disable-pic \
-	--disable-doc \
-	--disable-programs
 
 # Disable optimizations if requested.
 ifneq (,$(filter noopt,$(DEB_BUILD_OPTIONS)))
@@ -183,8 +179,8 @@ ifeq (linux,$(DEB_HOST_ARCH_OS))
 else
 	CONFIG += --disable-libplacebo
 endif
-# Rust not available on most of ports
-ifeq (,$(filter alpha hppa hurd-i386 ia64 m68k riscv64 sh4 sparc64 x32,$(DEB_HOST_ARCH)))
+# Rust is not available on most of ports.
+ifeq (,$(filter alpha hppa hurd-i386 ia64 m68k sh4 sparc64 x32,$(DEB_HOST_ARCH)))
 	CONFIG += --enable-librav1e
 else
 	CONFIG += --disable-librav1e
@@ -328,8 +324,6 @@ ifeq (powerpc,$(DEB_HOST_ARCH))
 	install -d debian/tmp/extra/usr/lib/$(DEB_HOST_MULTIARCH)/altivec
 	install -m 644 debian/altivec-extra/*/*.so.* debian/tmp/extra/usr/lib/$(DEB_HOST_MULTIARCH)/altivec
 endif
-	# Use the static libraries from the --disable-pic build
-	install -m 644 debian/static/*/lib*.a debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)
 
 override_dh_auto_install-indep:
 	$(MAKE) -C debian/standard DESTDIR=$(CURDIR)/debian/tmp install-doc install-examples

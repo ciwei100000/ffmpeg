@@ -3,7 +3,7 @@ libavutil.so.58 libavutil58 #MINVER#
 | libavutil58 (= @DEB_VERSION@)
 * Build-Depends-Package: libavutil-dev
  LIBAVUTIL_58@LIBAVUTIL_58 @DEB_VERSION_EPOCH_UPSTREAM@
- (optional|regex)^avpriv_ 0
+ (optional|regex)^avpriv_ 0 1
  av_add_i@LIBAVUTIL_58 7:6.0
  av_add_q@LIBAVUTIL_58 7:6.0
  av_add_stable@LIBAVUTIL_58 7:6.0

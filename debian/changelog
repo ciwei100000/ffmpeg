@@ -1,3 +1,11 @@
+ffmpeg (7:6.0-6) unstable; urgency=medium
+
+  * debian/libavutils58.symbols: Fix version for avpriv symbols
+  * debian/: Enable rav1e on riscv64
+  * debian/rules: Build static libraries with PIC enabled
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Wed, 23 Aug 2023 10:24:18 +0200
+
 ffmpeg (7:6.0-5c1~nonfree) unstable; urgency=medium
 
   * manually add debian/6.0-5

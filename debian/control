@@ -114,7 +114,7 @@ Build-Depends:
 # --enable-librabbitmq
  librabbitmq-dev,
 # --enable-librav1e
- librav1e-dev [!alpha !hppa !hurd-i386 !ia64 !m68k !riscv64 !sh4 !sparc64 !x32] <!pkg.ffmpeg.stage1>,
+ librav1e-dev [!alpha !hppa !hurd-i386 !ia64 !m68k !sh4 !sparc64 !x32] <!pkg.ffmpeg.stage1>,
 # --enable-librist
  librist-dev,
 # --enable-librubberband
