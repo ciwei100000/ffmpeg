@@ -1,3 +1,9 @@
+ffmpeg (7:6.0-7) unstable; urgency=medium
+
+  * debian/: Disable libsvtav1 to unblock transition
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Sun, 24 Sep 2023 08:47:33 +0200
+
 ffmpeg (7:6.0-6) unstable; urgency=medium
 
   * debian/libavutils58.symbols: Fix version for avpriv symbols

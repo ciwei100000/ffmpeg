@@ -140,7 +140,7 @@ Build-Depends:
 # --enable-libssh
  libssh-gcrypt-dev,
 # --enable-libsvtav1
- libsvtav1enc-dev,
+# libsvtav1enc-dev <!pkg.ffmpeg.stage1>,
 # --enable-libtesseract (used only in -extra flavor)
  libtesseract-dev,
 # --enable-libtheora
