@@ -61,7 +61,6 @@ CONFIG := --prefix=/usr \
 	--enable-libspeex \
 	--enable-libsrt \
 	--enable-libssh \
-	--enable-libsvtav1 \
 	--enable-libtheora \
 	--enable-libtwolame \
 	--enable-libvidstab \
@@ -167,11 +166,13 @@ ifneq (,$(filter pkg.ffmpeg.stage1,$(DEB_BUILD_PROFILES)))
 		--disable-frei0r \
 		--disable-libplacebo \
 		--disable-librav1e \
+		--disable-libsvtav1 \
 		--disable-libx264
 else
 	CONFIG += \
 		--enable-chromaprint \
 		--enable-frei0r \
+		--enable-libsvtav1 \
 		--enable-libx264
 # Some libraries are built only on linux.
 ifeq (linux,$(DEB_HOST_ARCH_OS))
@@ -206,15 +207,6 @@ ifneq (,$(filter x32,$(DEB_HOST_ARCH)))
 	CONFIG += --disable-asm
 endif
 
-# Disable some optimizations on mips*, because they are not always available on these architectures
-ifneq (,$(filter mips%r6 mips%r6el, $(DEB_HOST_ARCH)))
-	MIPS_R2_R6_CONFIG = --disable-mips32r2 \
-		--disable-mips64r2
-else
-	MIPS_R2_R6_CONFIG = --disable-mips32r6 \
-		--disable-mips64r6
-endif
-
 ifneq (,$(filter mips%,$(DEB_HOST_ARCH)))
 	CONFIG += --disable-mipsdsp \
 		--disable-mipsdspr2 \
@@ -224,11 +216,6 @@ ifneq (,$(filter mips%,$(DEB_HOST_ARCH)))
 		--disable-mips32r5 \
 		$(MIPS_R2_R6_CONFIG) \
 		--disable-msa
-endif
-
-# Disable mipsfpu on mips and mipsel, because it is not compatible with the FPXX ABI
-ifneq (,$(filter mips mipsel,$(DEB_HOST_ARCH)))
-	CONFIG += --disable-mipsfpu
 endif
 
 # Disable some tests which fail when FLT_EVAL_METHOD != 0 (found on i386, m68k and s390x)

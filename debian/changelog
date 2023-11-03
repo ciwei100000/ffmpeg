@@ -1,3 +1,23 @@
+ffmpeg (7:6.0-9) unstable; urgency=medium
+
+  * debian/patches: Workaround build issues with texinfo 7.1 (Closes:
+    #1055111)
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Wed, 01 Nov 2023 00:06:10 +0100
+
+ffmpeg (7:6.0-8) unstable; urgency=medium
+
+  * debian/: Re-enable libsvtav1 (Closes: #1055058)
+  * debian/rules: Remove mips(el)
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Mon, 30 Oct 2023 21:55:47 +0100
+
+ffmpeg (7:6.0-7) unstable; urgency=medium
+
+  * debian/: Disable libsvtav1 to unblock transition
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Sun, 24 Sep 2023 08:47:33 +0200
+
 ffmpeg (7:6.0-6) unstable; urgency=medium
 
   * debian/libavutils58.symbols: Fix version for avpriv symbols
