@@ -1,3 +1,9 @@
+ffmpeg (7:6.0-9c1~nonfree) unstable; urgency=medium
+
+  * Merge tag 'debian/7%6.0-9' into ciwei100000
+
+ -- Xuqing Liu <ciwei100000@gmail.com>  Fri, 3 Nov 2023 01:57:02 -0700
+
 ffmpeg (7:6.0-9) unstable; urgency=medium
 
   * debian/patches: Workaround build issues with texinfo 7.1 (Closes:
